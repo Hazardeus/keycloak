@@ -242,6 +242,20 @@ a:hover { color: var(--signal); }
   color: var(--paper-soft);
 }
 .kc-form .kc-checkbox input { accent-color: var(--signal); }
+.kc-form .kc-form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.kc-form .kc-aux-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  color: var(--paper-soft);
+}
+.kc-form .kc-aux-link:hover { color: var(--signal); }
 .kc-form button[type="submit"] {
   background: var(--signal);
   color: var(--ink);
