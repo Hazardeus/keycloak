@@ -1,0 +1,121 @@
+{
+  "realm": "yoops",
+  "displayName": "Yoops",
+  "displayNameHtml": "<strong>Yoops</strong>",
+  "enabled": true,
+
+  "_comment_hostname": "Pas de champ hostname dans le realm JSON : le hostname est une config serveur (keycloak.conf). Le realm est servi sous https://security.yoops.org/realms/yoops.",
+
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "registrationEmailAsUsername": true,
+  "rememberMe": true,
+  "verifyEmail": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "permanentLockout": false,
+  "maxFailureWaitSeconds": 900,
+  "minimumQuickLoginWaitSeconds": 60,
+  "waitIncrementSeconds": 60,
+  "quickLoginCheckMilliSeconds": 1000,
+  "maxDeltaTimeSeconds": 43200,
+  "failureFactor": 5,
+
+  "defaultLocale": "fr",
+  "supportedLocales": ["fr", "en"],
+  "internationalizationEnabled": true,
+
+  "accessTokenLifespan": 300,
+  "accessTokenLifespanForImplicitFlow": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "offlineSessionIdleTimeout": 2592000,
+  "accessCodeLifespan": 60,
+  "accessCodeLifespanUserAction": 300,
+  "accessCodeLifespanLogin": 1800,
+
+  "loginTheme": "keycloak.v2",
+  "accountTheme": "keycloak.v3",
+  "adminTheme": "keycloak.v2",
+  "emailTheme": "keycloak",
+
+  "roles": {
+    "realm": [
+      { "name": "yoops-user",   "description": "Utilisateur standard de l'écosystème Yoops" },
+      { "name": "yoops-admin",  "description": "Administrateur de l'écosystème Yoops" },
+      { "name": "agflow-user",  "description": "Accès à la HITL console ag.flow" },
+      { "name": "agflow-admin", "description": "Administrateur ag.flow" }
+    ]
+  },
+
+  "groups": [
+    { "name": "yoops",   "realmRoles": ["yoops-user"] },
+    { "name": "agflow",  "realmRoles": ["yoops-user", "agflow-user"] },
+    { "name": "admins",  "realmRoles": ["yoops-admin", "agflow-admin"] }
+  ],
+
+  "defaultRoles": ["yoops-user"],
+  "defaultGroups": ["/yoops"],
+
+  "clients": [
+    {
+      "clientId": "ag-flow-provisioner",
+      "name": "ag.flow provisioner (service account)",
+      "description": "Client machine-to-machine pour provisionner users/clients via l'API admin",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": false,
+      "secret": "REPLACE_ME_AT_INSTALL",
+      "_comment_secret": "Le script 03-apply-realm.sh régénère ce secret à l'import et l'écrit dans /root/keycloak-credentials.txt"
+    },
+    {
+      "clientId": "hitl-console",
+      "name": "HITL Console (ag.flow)",
+      "description": "Frontend React de la HITL console — client public avec PKCE",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "https://hitl.langgraph.yoops.org/*"
+      },
+      "redirectUris": [
+        "https://hitl.langgraph.yoops.org/*",
+        "http://localhost:5173/*"
+      ],
+      "webOrigins": [
+        "https://hitl.langgraph.yoops.org",
+        "http://localhost:5173"
+      ]
+    },
+    {
+      "clientId": "hitl-api",
+      "name": "HITL API (ag.flow backend)",
+      "description": "API FastAPI — bearer-only, valide les tokens émis par Keycloak",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "bearerOnly": true,
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false
+    }
+  ],
+
+  "smtpServer": {
+    "_comment": "À configurer via l'UI ou un override : host, from, auth, user, password, starttls",
+    "host": "",
+    "from": "no-reply@yoops.org",
+    "fromDisplayName": "Yoops Security"
+  }
+}

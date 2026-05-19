@@ -1,0 +1,10 @@
+# secrets
+client_secret_*.json
+*.local.env
+
+# brainstorm / tooling éphémère
+.superpowers/
+
+# OS
+.DS_Store
+Thumbs.db
