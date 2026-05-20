@@ -4,6 +4,10 @@ client_secret_*.json
 
 # brainstorm / tooling éphémère
 .superpowers/
+.playwright-mcp/
+.agents/
+.claude/
+skills-lock.json
 
 # OS
 .DS_Store
