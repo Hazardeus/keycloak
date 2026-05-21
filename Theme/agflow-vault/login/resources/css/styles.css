@@ -339,6 +339,129 @@ button { font: inherit; }
     color: var(--ink);
 }
 
+.v-card-title em {
+    font-style: italic;
+    color: var(--blue);
+    font-weight: 400;
+    font-variation-settings: "opsz" 144;
+}
+
+.v-card-sub {
+    margin: 14px 0 0;
+    max-width: 38ch;
+    font-family: var(--serif);
+    font-size: 15.5px;
+    line-height: 1.55;
+    font-weight: 350;
+    color: var(--ink-mute);
+    font-variation-settings: "opsz" 24;
+}
+
+/* -- info / message blocks (info.ftl, error.ftl, etc.) ----------- */
+
+.v-info,
+.v-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.v-info-text {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.55;
+    font-weight: 350;
+    color: var(--ink);
+    font-variation-settings: "opsz" 36;
+}
+
+.v-info-muted { color: var(--ink-mute); }
+
+.v-info {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--paper-line);
+}
+
+/* -- field-level error ------------------------------------------- */
+
+.v-field-error {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: #c83a26;
+}
+
+.v-field [aria-invalid="true"] {
+    border-bottom-color: #c83a26 !important;
+}
+
+/* -- ghost button (secondary actions) ---------------------------- */
+
+.v-btn-ghost,
+.v-btn.v-btn-ghost {
+    background: transparent !important;
+    color: var(--ink) !important;
+    border-color: var(--paper-rule) !important;
+    box-shadow: none !important;
+    margin-top: 10px;
+}
+
+.v-btn-ghost::before { display: none; }
+
+.v-btn-ghost:hover,
+.v-btn-ghost:focus-visible {
+    border-color: var(--ink) !important;
+    color: var(--ink) !important;
+    background: var(--paper-2) !important;
+}
+
+a.v-btn,
+a.v-btn-ghost {
+    display: inline-grid;
+    text-decoration: none;
+    grid-template-columns: 1fr auto;
+}
+
+/* -- OTP credentials picker + input ------------------------------ */
+
+.v-otp-credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.v-otp-credential {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--paper-rule);
+    cursor: pointer;
+    transition: border-color .18s ease, background .18s ease;
+}
+
+.v-otp-credential:hover { border-color: var(--ink); background: var(--paper-2); }
+
+.v-otp-credential input { accent-color: var(--blue); }
+
+.v-otp-credential-name {
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--ink);
+}
+
+.v-input-otp {
+    font-family: var(--mono) !important;
+    font-size: 24px !important;
+    letter-spacing: 0.4em !important;
+    text-align: center;
+}
+
 /* -- alerts ------------------------------------------------------ */
 
 .v-alert {
@@ -610,6 +733,51 @@ input[type="submit"] {
 
 .v-btn:hover .v-btn-arrow,
 .v-btn:focus-visible .v-btn-arrow { transform: translateX(4px); }
+
+/* -- register prompt (under the main CTA) ------------------------ */
+
+.v-register-prompt {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 22px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--paper-line);
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--ink-mute);
+    font-variation-settings: "opsz" 24;
+}
+
+.v-register-prompt-text { font-style: italic; }
+
+.v-link-arrow {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: 1px;
+    transition: color .2s ease, border-color .2s ease;
+}
+
+.v-link-arrow .v-link-arrow-glyph {
+    display: inline-block;
+    margin-left: 6px;
+    color: var(--blue);
+    transition: transform .25s cubic-bezier(.2,.7,.2,1);
+}
+
+.v-link-arrow:hover {
+    color: var(--blue);
+}
+
+.v-link-arrow:hover .v-link-arrow-glyph {
+    transform: translateX(4px);
+}
 
 /* =================================================================
    federated identities

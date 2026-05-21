@@ -1,0 +1,265 @@
+/* =================================================================
+   agflow-vault — Account Console (keycloak.v3) brand overrides
+   Repaint the PatternFly variables to match the login theme.
+   =================================================================
+   Palette : cream paper #faf9f5 + ink #0c0e12 + blue vault #2353ff
+   Typography : Fraunces (serif, loaded from Google Fonts) + JetBrains Mono
+   ================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root,
+.pf-v5-theme-dark,
+.pf-theme-dark {
+    /* Primary accent (buttons, links, focus) */
+    --pf-v5-global--primary-color--100: #2353ff;
+    --pf-v5-global--primary-color--200: #1a3fcc;
+    --pf-v5-global--link--Color: #2353ff;
+    --pf-v5-global--link--Color--hover: #1a3fcc;
+    --pf-v5-global--active-color--100: #2353ff;
+
+    /* PatternFly v4 vars (kept for older builds of keycloak.v3) */
+    --pf-global--primary-color--100: #2353ff;
+    --pf-global--primary-color--200: #1a3fcc;
+    --pf-global--link--Color: #2353ff;
+    --pf-global--link--Color--hover: #1a3fcc;
+    --pf-global--active-color--100: #2353ff;
+
+    /* Backgrounds */
+    --pf-v5-global--BackgroundColor--100: #faf9f5;
+    --pf-v5-global--BackgroundColor--150: #f3efe6;
+    --pf-v5-global--BackgroundColor--200: #f3efe6;
+    --pf-global--BackgroundColor--100: #faf9f5;
+    --pf-global--BackgroundColor--150: #f3efe6;
+    --pf-global--BackgroundColor--200: #f3efe6;
+
+    /* Text */
+    --pf-v5-global--Color--100: #0c0e12;
+    --pf-v5-global--Color--200: #2a2d34;
+    --pf-v5-global--Color--dark-100: #0c0e12;
+    --pf-global--Color--100: #0c0e12;
+    --pf-global--Color--200: #2a2d34;
+
+    /* Borders */
+    --pf-v5-global--BorderColor--100: rgba(12, 14, 18, 0.16);
+    --pf-v5-global--BorderColor--300: rgba(12, 14, 18, 0.10);
+    --pf-global--BorderColor--100: rgba(12, 14, 18, 0.16);
+    --pf-global--BorderColor--300: rgba(12, 14, 18, 0.10);
+
+    /* Typography */
+    --pf-v5-global--FontFamily--text: "Fraunces", "Georgia", "Times New Roman", serif;
+    --pf-v5-global--FontFamily--heading: "Fraunces", "Georgia", "Times New Roman", serif;
+    --pf-v5-global--FontFamily--monospace: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    --pf-global--FontFamily--text: "Fraunces", "Georgia", "Times New Roman", serif;
+    --pf-global--FontFamily--heading: "Fraunces", "Georgia", "Times New Roman", serif;
+    --pf-global--FontFamily--monospace: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* -- Page chrome ------------------------------------------------- */
+
+html, body {
+    background: #faf9f5 !important;
+    color: #0c0e12 !important;
+    font-family: "Fraunces", "Georgia", "Times New Roman", serif !important;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* -- Top navigation / brand bar ---------------------------------- */
+
+.pf-v5-c-masthead,
+.pf-c-page__header,
+.pf-c-page__main-section,
+.pf-v5-c-page__header,
+.pf-v5-c-page__main-section {
+    background: #faf9f5 !important;
+    border-bottom: 1px solid rgba(12, 14, 18, 0.10) !important;
+    color: #0c0e12 !important;
+}
+
+.pf-v5-c-masthead a,
+.pf-c-page__header a {
+    color: #0c0e12 !important;
+}
+
+/* -- Headings ---------------------------------------------------- */
+
+h1, h2, h3, h4,
+.pf-v5-c-title,
+.pf-c-title {
+    font-family: "Fraunces", Georgia, serif !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.02em !important;
+    color: #0c0e12 !important;
+}
+
+/* -- Cards ------------------------------------------------------- */
+
+.pf-v5-c-card,
+.pf-c-card {
+    background: #faf9f5 !important;
+    border: 1px solid rgba(12, 14, 18, 0.16) !important;
+    box-shadow: 0 1px 0 rgba(12, 14, 18, 0.04),
+                0 24px 60px -28px rgba(12, 14, 18, 0.18) !important;
+    border-radius: 0 !important;
+}
+
+/* -- Buttons ----------------------------------------------------- */
+
+.pf-v5-c-button.pf-m-primary,
+.pf-c-button.pf-m-primary {
+    background: #2353ff !important;
+    border: 1px solid #2353ff !important;
+    color: #faf9f5 !important;
+    border-radius: 0 !important;
+    font-family: "Fraunces", Georgia, serif !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.005em !important;
+    box-shadow: 0 4px 18px -10px rgba(35, 83, 255, 0.18) !important;
+    transition: background .25s ease, box-shadow .25s ease, transform .15s ease;
+}
+
+.pf-v5-c-button.pf-m-primary:hover,
+.pf-c-button.pf-m-primary:hover {
+    background: #0c0e12 !important;
+    border-color: #0c0e12 !important;
+}
+
+.pf-v5-c-button.pf-m-primary:active,
+.pf-c-button.pf-m-primary:active {
+    transform: translateY(1px);
+}
+
+.pf-v5-c-button.pf-m-secondary,
+.pf-c-button.pf-m-secondary {
+    background: transparent !important;
+    border: 1px solid rgba(12, 14, 18, 0.18) !important;
+    color: #0c0e12 !important;
+    border-radius: 0 !important;
+    font-family: "Fraunces", Georgia, serif !important;
+}
+
+.pf-v5-c-button.pf-m-secondary:hover,
+.pf-c-button.pf-m-secondary:hover {
+    border-color: #0c0e12 !important;
+    background: #f3efe6 !important;
+}
+
+/* -- Form inputs (underline style, like login) ------------------- */
+
+.pf-v5-c-form__group-label,
+.pf-c-form__group-label {
+    font-family: "JetBrains Mono", monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    color: rgba(12, 14, 18, 0.62) !important;
+}
+
+.pf-v5-c-form-control,
+.pf-c-form-control,
+input.pf-v5-c-form-control,
+input.pf-c-form-control {
+    font-family: "Fraunces", Georgia, serif !important;
+    font-size: 18px !important;
+    color: #0c0e12 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px solid #0c0e12 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 12px 4px !important;
+    transition: border-color .2s ease;
+}
+
+.pf-v5-c-form-control:focus,
+.pf-c-form-control:focus,
+input.pf-v5-c-form-control:focus,
+input.pf-c-form-control:focus {
+    border-bottom: 2px solid #2353ff !important;
+    outline: none !important;
+}
+
+/* -- Links ------------------------------------------------------- */
+
+a, .pf-v5-c-button.pf-m-link, .pf-c-button.pf-m-link {
+    color: #2353ff !important;
+}
+
+a:hover, .pf-v5-c-button.pf-m-link:hover, .pf-c-button.pf-m-link:hover {
+    color: #1a3fcc !important;
+}
+
+/* -- Side nav (account v3 menu) ---------------------------------- */
+
+.pf-v5-c-nav,
+.pf-c-nav {
+    background: #faf9f5 !important;
+}
+
+.pf-v5-c-nav__link,
+.pf-c-nav__link {
+    font-family: "Fraunces", Georgia, serif !important;
+    color: #0c0e12 !important;
+    border-radius: 0 !important;
+}
+
+.pf-v5-c-nav__item.pf-m-current > .pf-v5-c-nav__link,
+.pf-c-nav__item.pf-m-current > .pf-c-nav__link {
+    background: transparent !important;
+    color: #2353ff !important;
+    border-left: 2px solid #2353ff !important;
+}
+
+/* -- Tables ------------------------------------------------------ */
+
+.pf-v5-c-table,
+.pf-c-table {
+    font-family: "Fraunces", Georgia, serif !important;
+    background: transparent !important;
+}
+
+.pf-v5-c-table thead,
+.pf-c-table thead {
+    font-family: "JetBrains Mono", monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.10em !important;
+    text-transform: uppercase !important;
+    color: rgba(12, 14, 18, 0.62) !important;
+}
+
+/* -- Alerts ------------------------------------------------------ */
+
+.pf-v5-c-alert,
+.pf-c-alert {
+    border-radius: 0 !important;
+    border: 1px solid rgba(12, 14, 18, 0.16) !important;
+    background: #f3efe6 !important;
+    font-family: "Fraunces", Georgia, serif !important;
+}
+
+.pf-v5-c-alert.pf-m-info,
+.pf-c-alert.pf-m-info {
+    border-color: #2353ff !important;
+    background: rgba(35, 83, 255, 0.08) !important;
+}
+
+.pf-v5-c-alert.pf-m-success,
+.pf-c-alert.pf-m-success {
+    border-color: #2f7a4a !important;
+    background: #ecf3ee !important;
+}
+
+.pf-v5-c-alert.pf-m-danger,
+.pf-c-alert.pf-m-danger {
+    border-color: #c83a26 !important;
+    background: #faecea !important;
+}
+
+/* -- Focus ring -------------------------------------------------- */
+
+*:focus-visible {
+    outline: 2px solid #2353ff !important;
+    outline-offset: 2px !important;
+}
