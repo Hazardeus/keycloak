@@ -1,0 +1,66 @@
+{
+  "realm": "yoops",
+  "displayName": "Yoops",
+  "displayNameHtml": "<strong>Yoops</strong>",
+  "enabled": true,
+
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "registrationEmailAsUsername": true,
+  "rememberMe": true,
+  "verifyEmail": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "permanentLockout": false,
+  "maxFailureWaitSeconds": 900,
+  "minimumQuickLoginWaitSeconds": 60,
+  "waitIncrementSeconds": 60,
+  "quickLoginCheckMilliSeconds": 1000,
+  "maxDeltaTimeSeconds": 43200,
+  "failureFactor": 5,
+
+  "defaultLocale": "fr",
+  "supportedLocales": ["fr", "en"],
+  "internationalizationEnabled": true,
+
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+
+  "roles": {
+    "realm": [
+      { "name": "yoops-user", "description": "Utilisateur standard de l'écosystème Yoops" },
+      { "name": "yoops-admin", "description": "Administrateur de l'écosystème Yoops" },
+      { "name": "agflow-user", "description": "Accès à la HITL console ag.flow" },
+      { "name": "agflow-developer", "description": "Développeur ag.flow (accès outils/dev)" },
+      { "name": "agflow-admin", "description": "Administrateur ag.flow" },
+      {
+        "name": "dev",
+        "description": "Compatibilite Portal : equivalent utilisateur Portal regulier (implique agflow-user, PAS agflow-developer)",
+        "composite": true,
+        "composites": { "realm": ["agflow-user"] }
+      },
+      {
+        "name": "admin",
+        "description": "Compatibilite Portal : equivalent admin Portal (implique agflow-admin + acces Portal normal)",
+        "composite": true,
+        "composites": { "realm": ["agflow-admin", "agflow-user"] }
+      }
+    ]
+  },
+
+  "groups": [
+    { "name": "yoops", "realmRoles": ["yoops-user"] },
+    { "name": "agflow", "realmRoles": ["yoops-user", "agflow-user", "dev"] },
+    { "name": "developers", "realmRoles": ["yoops-user", "agflow-user", "agflow-developer", "dev"] },
+    { "name": "admins", "realmRoles": ["yoops-user", "yoops-admin", "agflow-user", "agflow-admin", "dev", "admin"] }
+  ],
+
+  "defaultRoles": ["yoops-user"],
+  "defaultGroups": ["/yoops"],
+
+  "clients": []
+}
