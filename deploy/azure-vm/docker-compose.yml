@@ -1,0 +1,54 @@
+name: agflow-keycloak
+
+services:
+  postgres:
+    image: postgres:16.6-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - agflow_keycloak_pgdata:/var/lib/postgresql/data
+    # No host port mapping: only reachable from the keycloak container via the
+    # internal compose network. This instance is dedicated to Keycloak only.
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    restart: unless-stopped
+    command: start --optimized --import-realm
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
+      # Lab/bootstrap phase: no reverse proxy, no public hostname yet.
+      # Access is via SSH tunnel to 127.0.0.1 only (see README.md).
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HEALTH_ENABLED: "true"
+    volumes:
+      - ./realm:/opt/keycloak/data/import:ro
+    ports:
+      # Bind loopback-only: never expose Keycloak beyond the VM itself.
+      - "127.0.0.1:8080:8080"
+    networks:
+      - internal
+
+networks:
+  internal:
+
+volumes:
+  agflow_keycloak_pgdata:

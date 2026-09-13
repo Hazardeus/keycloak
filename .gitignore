@@ -2,6 +2,10 @@
 client_secret_*.json
 *.local.env
 
+# Azure VM deployment (deploy/azure-vm/)
+deploy/azure-vm/.env
+deploy/azure-vm/backups/
+
 # brainstorm / tooling éphémère
 .superpowers/
 .playwright-mcp/
