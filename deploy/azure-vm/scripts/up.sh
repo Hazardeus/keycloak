@@ -18,7 +18,7 @@ fi
 docker compose --env-file .env up -d
 
 echo ""
-echo "==> Stack démarrée. Keycloak est lié à 127.0.0.1:8080 sur cette VM uniquement."
+echo "==> Stack démarrée. Keycloak est lié à 127.0.0.1:8090 sur cette VM uniquement."
 echo "    Accès depuis ton poste via tunnel SSH, ex. :"
-echo "      ssh -N -L 8080:127.0.0.1:8080 <user>@<azure-vm-ip>"
-echo "    Puis ouvre http://127.0.0.1:8080"
+echo "      ssh -N -L 18090:127.0.0.1:8090 <user>@<azure-vm-ip>"
+echo "    Puis ouvre http://127.0.0.1:18090"

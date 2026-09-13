@@ -14,3 +14,4 @@ echo ""
 echo "==> Keycloak health (depuis l'intérieur du réseau compose) :"
 docker compose exec -T keycloak \
   curl -fsS "http://127.0.0.1:8080/health/ready" || echo "    Keycloak pas prêt / injoignable"
+# Note: 8080 above is the container-internal port; the host binding is 127.0.0.1:8090.

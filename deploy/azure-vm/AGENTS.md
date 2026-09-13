@@ -27,8 +27,12 @@ Azure assumptions anywhere else in the repository.
   including but not limited to:
   - the host `root@192.168.10.90`
   - the SSH key `~/.ssh/id_shellia`
-  - the realm name `yoops`
-  - anything Proxmox- or LXC-specific
+  - Proxmox/LXC-specific paths, services, or scripts
+  - anything else Proxmox- or LXC-specific
+  Exception: the **realm name `yoops`** is intentionally reused here (see
+  "Deployment model" below) to preserve the upstream identity contract. This
+  is a deliberate decision, not upstream leakage — the Azure instance still
+  has its own dedicated Postgres, its own admin, and no shared secrets/users.
 - Do not touch anything outside `deploy/azure-vm/` unless the user explicitly
   asks for it (e.g. a shared `.gitignore` entry for `deploy/azure-vm/.env`).
 
@@ -36,14 +40,18 @@ Azure assumptions anywhere else in the repository.
 
 - Docker Compose only, kept explicit and minimal — no unnecessary services,
   no orchestration frameworks, no magic.
-- Keycloak realm for this deployment is **`agflow`** (not `yoops`).
+- Keycloak realm for this deployment is **`yoops`** — reused intentionally
+  for identity-contract compatibility with the upstream AG-Flow/Yoops
+  ecosystem (same canonical roles/groups). This does **not** make the
+  deployment dependent on upstream: separate Postgres, separate admin,
+  separate secrets, separate hosting.
 - Keycloak uses a **dedicated PostgreSQL container/instance** created for this
   deployment. Never point Keycloak at the AG-Flow application's own Postgres
   instance — separate data, separate credentials, separate volume.
 - Current scope is intentionally narrow. Only build/configure:
   - Keycloak
   - PostgreSQL (dedicated)
-  - the `agflow` realm
+  - the `yoops` realm
   - a bootstrap admin account
   - backup scripts
 - Explicitly out of scope for now (do not implement until asked):
@@ -85,6 +93,20 @@ Before considering any change in this directory done, check for:
 6. **Persistence and backup issues** — Postgres data must be on a named
    volume (or bind mount) that survives `docker compose down`; backup scripts
    must actually produce restorable dumps and must not silently fail.
+
+## Realm coexistence & migration
+
+- A realm named `agflow` may already exist in the deployed Keycloak Postgres
+  from a prior deployment. **Never delete, rename, reset, or automatically
+  modify that realm.** The `yoops` realm may coexist with it temporarily.
+- Migration plan (manual, staged, never automated by an agent): import/
+  validate `yoops` → migrate application OIDC configuration → a human
+  removes the old `agflow` realm later.
+- Realm JSON files imported via `--import-realm` are parsed strictly —
+  unrecognized top-level fields (e.g. `_comment_*` keys used in the upstream
+  `yoops-realm.json`) cause the import to fail. Do not add `_comment_*` keys
+  to `deploy/azure-vm/realm/yoops-realm.json`; put explanatory notes in this
+  file or in `README.md` instead.
 
 ## Compatibility with upstream
 

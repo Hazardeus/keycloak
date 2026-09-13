@@ -23,7 +23,10 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.0.7
     restart: unless-stopped
-    command: start --optimized --import-realm
+    # No prior 'kc.sh build' step exists for this image, so --optimized would
+    # abort on any build-time option mismatch (kc.db, kc.health-enabled).
+    # Plain 'start' re-runs the build automatically on each startup.
+    command: start --import-realm
     depends_on:
       postgres:
         condition: service_healthy
@@ -43,7 +46,7 @@ services:
       - ./realm:/opt/keycloak/data/import:ro
     ports:
       # Bind loopback-only: never expose Keycloak beyond the VM itself.
-      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:8090:8080"
     networks:
       - internal
 
